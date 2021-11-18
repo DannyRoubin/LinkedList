@@ -187,27 +187,62 @@ public class List {
 
     }
 
+    public boolean isEmpty() {
+        if (size() == 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public static void main(String[] args) {
         List empty = new List();
         List one = new List();
         List multiple = new List();
-        // try {
-        one.insert(5, 0);
+
+        // testing inserting
         // trying out inserting at start
+        System.out.println("*********Testing all cases with inserting*********");
+        System.out.println("");
+        one.insert(5, 0);
+        System.out.println("list One after a single insert at index 0, expecting 5 :" + one);
+
+        // trying out inserting multiple nodes to the front
+        System.out.println("Multiple list prior to any changes, expecting empty :" + multiple);
         multiple.insert(10, 0);
         multiple.insert(20, 0);
         multiple.insert(30, 0);
+        System.out.println("Multiple list post inserting multiple nodes in the beginning, expecting 30 20 10 :" + multiple);
         // trying out inserting in the middle
         multiple.insert(7, 1);
         multiple.insert(8, 3);
+        System.out.println("Multiple list post inserting multiple nodes at index 1 and index 3 in the list, expecting 30 7 20 8 10 :" + multiple);
         // testing edge case with adding
         multiple.insert(9, 5);
+        System.out.println("Multiple list post testing edge case with adding 9 as the new tail for the linked list, expecting 30 7 20 8 10 9 :" + multiple);
         // testing out of bounds by 1 case
+        System.out.println("Multiple list testing adding a new node 1 index too far out of bounds, expecting error on next line :" );
         multiple.insert(3, 7);
+        // testing inserting at ta negative index
+        System.out.println("Multiple list testing adding a new node at a negative index, expecting error on next line :" );
+        multiple.insert(3, -1);
 
-        System.out.println("Empty:" + empty);
-        System.out.println("One:" + one);
-        System.out.println("Multiple:" + multiple);
+        System.out.println("Relisting the three lists we have to document them prior to any removal testing is done" );
+        System.out.println("List Empty, expecting empty :" + empty);
+        System.out.println("List One, expecting 5 :" + one);
+        System.out.println("List Multiple, expecting 30 7 20 8 10 9 :" + multiple);
+
+        System.out.println("");
+        System.out.println("*********Testing all cases with removing*********");
+        System.out.println("");
+
+        // testing fail cases first this time around
+        // first testing if we are able to remove at a negative index
+        System.out.println("Multiple list testing removing a node at a negative index, expecting error on next line :" );
+        multiple.remove(-1);
+        // testing if we are able to remove at an out of bounds index
+        System.out.println("Multiple list testing removing a node at an out of bounds index, expecting error on next line :" );
+        multiple.remove(15);
 
         // removal of first and only node
         one.remove(0);
