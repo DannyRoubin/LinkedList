@@ -50,7 +50,7 @@ public class Stack extends List {
 
             System.out.println("Testing pop with the stack CBA expecting C will be returned from the pop because of FIFO : " +stack.pop());
             System.out.println("Testing pop with the stack BA expecting B will be returned from the pop because of FIFO : " +stack.pop());
-            System.out.println("Testing pop with the stack A expecting A will be returned from the pop because of FIFO : " +stack.pop());
+            System.out.println("Testing pop with the stack A expecting A will be returned from the pop because of FIFO : " +stack.remove(456465));
             System.out.println("Testing pop with an empty stack, expecting an error message on the next line : ");
             stack.pop();
 
