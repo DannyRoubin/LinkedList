@@ -7,7 +7,6 @@ Purpose of this file/class is to act as a linked list superclass that will be ex
 a stack and queue subclasses
 */
 
-//************Before finishing make sure I go through and test every single possibility for insert and remove */
 
 public class List {
 
