@@ -25,23 +25,22 @@ public class List {
         }
     }
 
-    public void insert(Object next, int index) {
+    public void insert(Object next, int index) throws LinkedListException {
         // We set up all of the else if's so we only hit one statement
         // no possible way for the index to be less than 0, so check for this first and
         // throw error if it is the case
         if (index < 0) {
-            System.out.println("Throw exception temp holder");
+            throw new LinkedListException("Please only provide a positive index");
         }
 
         // Makes sure that the size is smaller than the index
         else if (size() < index) {
-            System.out.println("Throw exception temp holder");
-        }
+            throw new LinkedListException("Please only provide an index that is smaller than the size");        }
 
         // ****Section that checks for an empty list****
         // first we check if the list is null and if the index is over 0
         else if (head == null && index > 0) {
-            System.out.println("Throws exception temp holder");
+            throw new LinkedListException("Please only give index 0 when a list is empty");
             // Checks if the list is empty, if it is we add to the start of the List
         } else if (head == null && index == 0) {
             Node newNode = new Node(next, head);
@@ -52,7 +51,7 @@ public class List {
         // first checking if the list only has one element and if the index is greater
         // than 1, since that wouldn't be allowed
         else if (head.next == null && index > 1) {
-            System.out.println("Throw exception temp holder");
+            throw new LinkedListException("Please only provide an index that is smaller than the size");
         }
         // valid case of if there is one element and the desired index is 0, we replace
         // the head with next and have it point to the old head
@@ -89,30 +88,30 @@ public class List {
 
     }
 
-    public Object remove(int index) {
+    public Object remove(int index) throws LinkedListException {
         // We set up all of the else if's so we only hit one statement
         // no possible way for the index to be less than 0, so check for this first and
         // throw error if it is the case
         if (index < 0) {
-            System.out.println("Throw exception temp holder");
+            throw new LinkedListException("Please only provide a positive index");
         }
 
         // Makes sure that the size is smaller than the index
         else if (size() < index) {
-            System.out.println("Throw exception temp holder");
+            throw new LinkedListException("Please only provide an index that is smaller than the size");
         }
 
         // ****Section that checks for an empty list****
         // first we check if the list is empty and throw exception since that wont work
         // with us
         else if (head == null) {
-            System.out.println("Throws exception temp holder");
+            throw new LinkedListException("We cannot remove anything from an empty list");        
         }
         // ****Section that checks a list that only has a single Node****
         // first checking if the list only has one element and if the index is greater
         // than 1, since that wouldn't be allowed
         else if (head.next == null && index > 0) {
-            System.out.println("Throw exception temp holder");
+            throw new LinkedListException("When the size is 1, we can only remove the first element");
         }
         // valid case of if there is one element and the desired index is 0, we replace
         // the head with next and have it point to the old head
@@ -154,7 +153,6 @@ public class List {
             prev.next = nextIndexHolder.next;
             return temp;
         }
-        return null;
 
     }
 
@@ -225,7 +223,11 @@ public class List {
 
     // adds to the end of the linked list by reusing the size and insert methods we created
     public void addToEnd(Object obj) {
+        try {
         insert(obj,size());
+    } catch(LinkedListException e) {
+        System.out.println(e.getMessage());
+    }
     }
 
     // main method used for testing every possible output
@@ -234,10 +236,12 @@ public class List {
         List one = new List();
         List multiple = new List();
 
+        
         // testing inserting
         // trying out inserting at start
         System.out.println("*********Testing all cases with inserting*********");
         System.out.println("");
+        try{
         one.insert(5, 0);
         System.out.println("list One after a single insert at index 0, expecting 5 : " + one);
 
@@ -256,9 +260,11 @@ public class List {
         System.out.println("Multiple list post testing edge case with adding 9 as the new tail for the linked list, expecting 30 7 20 8 10 9 : " + multiple);
         // testing out of bounds by 1 case
         System.out.println("Multiple list testing adding a new node 1 index too far out of bounds, expecting error on next line : " );
+        // ****FOR TESTING: comment next line out to allow the program to continue to run****
         multiple.insert(3, 7);
         // testing inserting at a negative index
         System.out.println("Multiple list testing adding a new node at a negative index, expecting error on next line : " );
+        // ****FOR TESTING: comment next line out to allow the program to continue to run****
         multiple.insert(3, -1);
 
         System.out.println("Relisting the three lists we have to document them prior to any removal testing is done" );
@@ -274,12 +280,15 @@ public class List {
         // testing fail cases first this time around
         // first testing if we are able to remove at a negative index
         System.out.println("Multiple list testing removing a node at a negative index, expecting error on next line : " );
+        // ****FOR TESTING: comment next line out to allow the program to continue to run****
         multiple.remove(-1);
         // testing if we are able to remove at an out of bounds index
         System.out.println("Multiple list testing removing a node at an out of bounds index, expecting error on next line : " );
+        // ****FOR TESTING: comment next line out to allow the program to continue to run****
         multiple.remove(15);
         // removal of node from an empty list
         System.out.println("Empty list testing removing a node from an empty, expecting an error on the next line : " );
+        // ****FOR TESTING: comment next line out to allow the program to continue to run****
         empty.remove(0);
 
         // removal of first and only node
@@ -344,6 +353,12 @@ public class List {
         System.out.println("Testing size method on the empty list expecting 0  : " + empty.size());
         System.out.println("Testing isEmpty method on the empty list expecting true  : " + empty.isEmpty());
         System.out.println("Testing isEmpty method on the list one which has2 nodes in it, expecting false  : " + one.isEmpty());
+        
+    } catch(LinkedListException e) {
+        System.out.println(e.getMessage());
+        System.out.println("For testing: to view the rest of the methods in work without the catch ending the program, please trace back up to where the error was thrown and comment that line out ");
+        System.out.println("Hint to easily find the lines you need to comment out, do a 'ctrl + f' for '****FOR TESTING:' and you'll easily be able to find all the lines to comment to allow the program to run to the end ");
+    }
 
     }
 
